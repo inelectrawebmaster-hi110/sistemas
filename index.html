@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="mobile-web-app-capable" content="yes">
@@ -13,27 +12,69 @@
 
     <title>Inés Asistente HCM Inelectra</title>
     <style>
-        :root { --principal: #1a237e; --usuario: #dcf8c6; --fondo_ws: #e5ddd5; --blanco: #ffffff; --texto-suave: #888; --venemergencia: #e30613; --odontologia: #00bcd4; --amp: #4caf50; }
+        :root { 
+            --principal: #1a237e; 
+            --usuario: #dcf8c6; 
+            --fondo_ws: #e5ddd5; 
+            --blanco: #ffffff; 
+            --texto-suave: #888; 
+            --venemergencia: #e30613; 
+            --odontologia: #00bcd4; 
+            --amp: #4caf50; 
+        }
         
+        /* CORRECCIÓN: El body vuelve a ser transparente y NO interfiere con el scroll general */
         body, html { 
-            height: 100%; margin: 0; overflow: hidden; 
-            background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, sans-serif;
+            margin: 0; 
+            padding: 0;
+            background-color: transparent !important; 
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
-        #chat-launcher-container { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; align-items: flex-end; z-index: 1000; }
+        /* El contenedor del botón flotante siempre recibe clics */
+        #chat-launcher-container { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-end; 
+            z-index: 99999; 
+        }
+        
         #chat-tooltip { background: var(--blanco); padding: 10px 15px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px; margin-bottom: 12px; border: 1px solid #ddd; position: relative; animation: bounce 2s infinite; cursor: pointer; font-weight: 500; }
         #chat-launcher { width: 75px; height: 75px; background: white; border-radius: 50%; cursor: pointer; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.3); border: 3px solid var(--principal); display: flex; justify-content: center; align-items: center; }
         #chat-launcher img { width: 100%; height: 100%; object-fit: cover; }
 
+        /* Contenedor del chat optimizado: pantalla completa en móvil */
         #chat-container { 
-            display: none; width: 100%; height: 100%; background: var(--blanco); 
-            position: fixed; top: 0; left: 0; box-shadow: none; border-radius: 0; 
-            flex-direction: column; overflow: hidden; z-index: 1001; 
+            display: none; 
+            width: 100%; 
+            height: 100%; 
+            background: var(--blanco); 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            box-shadow: none; 
+            border-radius: 0; 
+            flex-direction: column; 
+            overflow: hidden; 
+            z-index: 100000; 
         }
 
+        /* En escritorio (pantallas grandes), se vuelve una ventana elegante en la esquina sin bloquear el resto de la web */
         @media (min-width: 600px) {
-            #chat-container { width: 400px; height: 90vh; left: auto; right: 20px; bottom: 20px; top: auto; border-radius: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.3); }
+            #chat-container { 
+                width: 400px; 
+                height: 85vh; 
+                left: auto; 
+                right: 20px; 
+                bottom: 20px; 
+                top: auto; 
+                border-radius: 18px; 
+                box-shadow: 0 12px 35px rgba(0,0,0,0.3); 
+            }
         }
 
         #chat-header { 
@@ -69,17 +110,17 @@
 <div id="chat-launcher-container">
     <div id="chat-tooltip" onclick="toggleChat()">¿Dudas con tu HCM? ¡Pregúntame!</div>
     <div id="chat-launcher" onclick="toggleChat()">
-        <img src="Ines.png" onerror="this.src='https://ui-avatars.com/api/?name=HCM&background=1a237e&color=fff'">
+        <img src="https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/Ines.png" onerror="this.src='https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/Ines.png'">
     </div>
 </div>
 
 <div id="chat-container">
     <div id="chat-header">
         <div class="header-info">
-            <img src="Ines.png" class="header-avatar" onerror="this.src='https://ui-avatars.com/api/?name=HCM&background=fff&color=1a237e'">
+            <img src="https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/Ines.png" class="header-avatar" onerror="this.src='https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/Ines.png'">
             <span>Inés Asistente HCM - Inelectra</span>
         </div>
-        <span onclick="toggleChat()" style="cursor:pointer; font-size: 24px;">&times;</span>
+        <span onclick="toggleChat()" style="cursor:pointer; font-size: 24px;">×</span>
     </div>
     <div id="chat-window"></div>
     <div id="options-container"></div>
@@ -106,7 +147,7 @@
     const TEL_DENTAL = "08007336638";
 
     const botTree = {
-        inicio: { texto: "¡Hola! Soy Inés.\n\nEstoy aquí para guiarte con tus beneficios de salud. ¿Me podrías indicar tu nombre y apellido para comenzar?", tipo: "nombre" },
+        inicio: { texto: "¡Hola! Soy Inés.\n\nEstoy aquí para guiarte con tus benefits de salud. ¿Me podrías indicar tu nombre y apellido para comenzar?", tipo: "nombre" },
         menu_principal: {
             texto: "Hola [nombre], ¿en qué área necesitas apoyo hoy?",
             opciones: [
@@ -154,11 +195,11 @@
             texto: "<b>Detalle de Servicios Master Dental (ANUAL):</b>\n• Consultas a escala nacional.\n• Examen, historia clínica y diagnóstico.\n• 2 Limpiezas.\n• 2 Exodoncias simples y quirúrgicas.\n• 2 cordales.\n• 4 Operatorias (Resinas).\n• 1 Tratamiento de conducto.\n• Emergencias odontológicas.",
             opciones: [{ texto: "⬅️ Volver", siguiente: "rama_odonto" }]
         },
-        rama_hcm: { 
-            texto: "<b>Póliza Básica:</b>\n• Límite: $10.000\n• Deducible: $25\n• Reembolso: 95%\n• Maternidad: $3.000\n<hr style='border:none; border-top: 1px solid #ddd; margin: 8px 0;'><b>Póliza de Exceso:</b>\n• Límite: $10.000\n• Deducible: $10.000", 
+       rama_hcm: { 
+            texto: "<b>Póliza Básica:</b>\n• Límite: $10.000\n• Deducible: $25\n• Reembolso: 95%\n• Maternidad: $3.000\n<hr style='border:none; border-top: 1px solid #ddd; margin: 8px 0;'><b>Póliza de Exceso:</b>\n• Límite: $10.000\n• Deducible: $10.000\n• Reembolso: 100%", 
             opciones: [{ texto: "💰 Ver Costos", siguiente: "hcm_costos" }, { texto: "⬅️ Volver", siguiente: "menu_principal" }] 
         },
-        hcm_costos: { texto: "<b>Primas Mensuales:</b>\n• Hijos < 23: $10,58\n• Hijos 24-30: $25,41\n• Padres < 70: $71,25\n• Padres 71-80: $92,66", opciones: [{ texto: "Ok", siguiente: "rama_hcm" }] },
+        hcm_costos: { texto: "<b>Primas Mensuales HCM:</b>\n• Hijos < 23: $10,58\n• Hijos 24-30: $25,41\n• Padres < 70: $71,25\n• Padres 71-80: $92,66\n<hr style='border:none; border-top: 1px solid #ddd; margin: 8px 0;'><b>Primas Mensuales Exceso:</b>\n• Hijos hasta 23 años: $2,54\n• Hijos de 24 a 30 años: $3.08 ", opciones: [{ texto: "Ok", siguiente: "rama_hcm" }] },
         rama_tramites: { texto: "<b>Gestiones HCM:</b>", opciones: [{ texto: "📥 Descargar Planillas", siguiente: "descargas" }, { texto: "🚨 Reportar Emergencia", siguiente: "emergencia" }, { texto: "💰 Reembolsos", siguiente: "reembolsos" }, { texto: "⬅️ Volver", siguiente: "menu_principal" }] },
         descargas: { texto: "<b>Documentos disponibles:</b>", opciones: [{ texto: "📄 Formulario HCM", accion: "descargar_hcm" }, { texto: "📄 Planilla Reembolso", accion: "descargar_reembolso" }, { texto: "⬅️ Volver", siguiente: "rama_tramites" }] },
         emergencia: { texto: "<b>¿Reportar Emergencia?</b>\nAcude a la clínica con tu CI. ¿Quieres avisar a Zuraima?", opciones: [{ texto: "📱 WhatsApp Zuraima", accion: "ir_ws" }, { texto: "Ok", siguiente: "rama_tramites" }] },
@@ -229,11 +270,10 @@
             link.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
             link.target = "_blank"; link.click();
         }
-        if (accion === "descargar_hcm") window.open('documentos/formulario-hcm.pdf', '_blank');
-        if (accion === "descargar_reembolso") window.open('documentos/planilla-reembolso.pdf', '_blank');
+        if (accion === "descargar_hcm") window.open('https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/formulario-hcm.pdf', '_blank');
+        if (accion === "descargar_reembolso") window.open('https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/planilla-reembolso.pdf', '_blank');
     }
 
-    // REGISTRO TÉCNICO PARA INSTALACIÓN (Obligatorio para que salga el botón)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('data:application/javascript;base64,c2VsZi5hZGRFdmVudExpc3RlbmVyKCdmZXRjaCcsIGU9Pnt9KTs=');
     }
