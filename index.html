@@ -147,7 +147,7 @@
     const TEL_DENTAL = "08007336638";
 
     const botTree = {
-        inicio: { texto: "¡Hola! Soy Inés.\n\nEstoy aquí para guiarte con tus benefits de salud. ¿Me podrías indicar tu nombre y apellido para comenzar?", tipo: "nombre" },
+        inicio: { texto: "¡Hola! Soy Inés.\n\nEstoy aquí para guiarte con tus beneficios de salud. ¿Me podrías indicar tu nombre y apellido para comenzar?", tipo: "nombre" },
         menu_principal: {
             texto: "Hola [nombre], ¿en qué área necesitas apoyo hoy?",
             opciones: [
@@ -270,8 +270,8 @@
             link.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
             link.target = "_blank"; link.click();
         }
-        if (accion === "descargar_hcm") window.open('https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/formulario-hcm.pdf', '_blank');
-        if (accion === "descargar_reembolso") window.open('https://sysdevcorp01.inelectra.com/inewebv3/wp-content/uploads/2026/06/planilla-reembolso.pdf', '_blank');
+        if (accion === "descargar_hcm") window.open('https://inelectrawebmaster-hi110.github.io/sistemas/Documentos/formulario-hcm.pdf', '_blank');
+        if (accion === "descargar_reembolso") window.open('https://inelectrawebmaster-hi110.github.io/sistemas/Documentos/planilla-reembolso.pdf', '_blank');
     }
 
     if ('serviceWorker' in navigator) {
